@@ -2,8 +2,6 @@ const express = require('express');  // creates the backend server.
 const cors = require('cors'); //allows cross-origin requests from your React frontend.
 const { sendEmail } = require('./mailer');
 
-require('dotenv').config();  //manages environment variables
-
 const app = express();
 
 app.use(cors());
