@@ -16,9 +16,9 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
-app.use(express.json());  //middleware that handles incoming requests with JSON payloads
+//app.options('*', cors()); // allow preflight for all routes
 
-app.options('*', cors()); // allow preflight for all routes
+app.use(express.json());  //middleware that handles incoming requests with JSON payloads
 
 //POST request
 app.post('/api/send-email', async (req, res) => {
