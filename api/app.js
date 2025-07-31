@@ -4,9 +4,21 @@ const { sendEmail } = require('./mailer');
 
 const app = express();
 
-app.use(cors());
+//NOTE: Specifies Which URLs to allow cross-origin requests from. 
+//      Will need to update once hosting website properly
+const allowedOrigins = [
+  'http://localhost:3000'
+];
+
+app.use(cors({
+    origin: allowedOrigins,
+    methods: 'POST',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 app.use(express.json());  //middleware that handles incoming requests with JSON payloads
 
+app.options('*', cors()); // allow preflight for all routes
 
 //POST request
 app.post('/api/send-email', async (req, res) => {
