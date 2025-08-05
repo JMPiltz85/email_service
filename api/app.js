@@ -24,21 +24,32 @@ app.use(express.json());  //middleware that handles incoming requests with JSON 
 app.post('/api/send-email', async (req, res) => {
     const { to, subject, text } = req.body;
 
-    if (!to || !subject || !text) {
-        return res.status(400).json({ error: 'Missing fields' });
+    if (!to) {
+        return res.status(400).json({ error: 'Missing To field' });
+    }
+
+    if (!subject) {
+        return res.status(400).json({ error: 'Missing Subject field' });
+    }
+
+    if (!text) {
+        return res.status(400).json({ error: 'Missing Text field' });
     }
 
     try{
         await sendEmail(to, subject, text);
         res.status(200).json({ success: true });
-        //res.status(200).send('Email sent out successfully'); // return response 200 (ok)
     }
 
     catch(err){
-        console.error(err.toString()); //logs error 
-        res.status(500).json({ error: 'Failed to send email' });
-        
-        // res.status(500).send(error.toString());  //returns response 500 (error)
+        console.error('Error sending email:', {
+            message: err.message,
+            stack: err.stack,
+        });
+        res.status(500).json({ 
+            error: 'Failed to send email. Please try again later.',
+            // details: err.message,
+        });
     }
 
 });
