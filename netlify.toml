@@ -1,0 +1,8 @@
+[build]
+  functions = "api"
+  command = "npm install"
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/handler"
+  status = 200
