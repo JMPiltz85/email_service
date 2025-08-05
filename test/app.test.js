@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('./app');
+const app = require('../api/app');
 
 const toAddress= "jmpiltz@gmail.com"
 const strSubject = "Work order from Unit #999"
@@ -10,7 +10,7 @@ jest.mock('./mailer', () => ({
     sendEmail: jest.fn(() => Promise.resolve()),
 }));
 
-const { sendEmail } = require('./mailer');
+const { sendEmail } = require('../api/mailer');
 
 describe('POST /api/send-email', () => {
 
